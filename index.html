@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ari Krauss | Redis-Powered CV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white font-sans p-8">
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-4xl font-bold mb-4">Ari Krauss</h1>
+        <button onclick="fetchCV()" class="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-full font-bold transition">
+            Execute Redis GET
+        </button>
+
+        <div id="performance" class="mt-4 text-green-400 font-mono text-sm hidden">
+            // Cache Hit: <span id="latency">0</span>ms
+        </div>
+
+        <pre id="cv-viewer" class="mt-8 bg-slate-800 p-6 rounded-lg overflow-x-auto text-blue-300 border border-slate-700">
+// Click the button to retrieve data from Redis Cloud...
+        </pre>
+    </div>
+
+    <script>
+        async function fetchCV() {
+            const start = performance.now();
+            const response = await fetch('/api/get-cv');
+            const data = await response.json();
+            const end = performance.now();
+
+            document.getElementById('latency').innerText = (end - start).toFixed(2);
+            document.getElementById('performance').classList.remove('hidden');
+            document.getElementById('cv-viewer').innerText = JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>
