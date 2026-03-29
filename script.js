@@ -27,13 +27,29 @@ async function fetchFullCV() {
         <span>📧 ${data.profile.contact.email}</span>
         <span>📱 ${data.profile.contact.phone}</span>
         <span>📍 ${data.profile.contact.location}</span>
+        ${data.profile.contact.linkedin ? `<span>🔗 <a href="${data.profile.contact.linkedin}" target="_blank" style="color:var(--text-dim); text-decoration:none;">LinkedIn</a></span>` : ''}
     `;
 
         // 3. Map Experience (Loop through array)
         const expList = document.getElementById('experience-list');
         expList.innerHTML = ''; // Clear loading text
         data.experience.forEach(job => {
-            const bullets = job.achievements.map(a => `<li>${a}</li>`).join('');
+            const bullets = job.achievements ? job.achievements.map(a => `<li>${a}</li>`).join('') : '';
+            
+            let descHtml = '';
+            if (job.description) {
+                descHtml = `<p style="margin-top: 10px; margin-bottom: 15px; color: var(--text-main); font-size: 0.95rem;">${job.description}</p>`;
+            }
+
+            let metricsHtml = '';
+            if (job.metrics) {
+                const metricItems = Object.entries(job.metrics).map(([key, value]) => {
+                    const label = key.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    return `<span class="skill-pill" style="border-color: var(--accent); color: var(--accent); background: rgba(16, 185, 129, 0.1);">${label}: ${value}</span>`;
+                }).join(' ');
+                metricsHtml = `<div style="margin-bottom: 15px; margin-top: 10px;">${metricItems}</div>`;
+            }
+
             expList.innerHTML += `
             <div class="card">
                 <div class="card-tag">REDIS_KEY: experience</div>
@@ -41,7 +57,9 @@ async function fetchFullCV() {
                     <span style="font-weight:700; font-size:1.2rem;">${job.role} <span style="color:var(--accent)">@ ${job.company}</span></span>
                     <span class="date">${job.period}</span>
                 </div>
-                <ul>${bullets}</ul>
+                ${descHtml}
+                ${metricsHtml}
+                ${bullets ? `<ul>${bullets}</ul>` : ''}
             </div>
         `;
         });
