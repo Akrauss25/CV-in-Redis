@@ -192,3 +192,43 @@ ul {
     margin-top: 20px;
     border: 1px solid var(--accent);
 }
+
+.powered-by-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #1e293b;
+    border: 1px solid var(--border);
+    padding: 12px 5px;
+    border-radius: 8px;
+    transition: transform 0.2s ease, background 0.2s ease;
+    cursor: default;
+    gap: 8px;
+}
+
+.icon-item:hover {
+    transform: translateY(-3px);
+    background: #2a3750;
+    border-color: var(--accent);
+}
+
+.icon-item svg {
+    width: 28px;
+    height: 28px;
+}
+
+.icon-item span {
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
