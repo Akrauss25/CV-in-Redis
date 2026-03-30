@@ -232,3 +232,24 @@ ul {
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
+
+.download-link {
+    display: inline-block;
+    color: var(--accent);
+    font-weight: bold;
+    text-decoration: none;
+    padding: 12px 20px;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    background: rgba(16, 185, 129, 0.1);
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+}
+
+.download-link:hover {
+    background: var(--accent);
+    color: var(--bg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
